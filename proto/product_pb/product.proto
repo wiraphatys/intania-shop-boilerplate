@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package product;
+
+option go_package = "github.com/wiraphatys/intania-shop-boilerplate/proto/product_pb";
+
+message Product {
+    string sku = 1;
+    string name = 2;
+    string description = 3;
+    double unit_price = 4;
+}
+
+message GetProductRequest {
+    string sku = 1;
+}
+
+message GetProductResponse {
+    Product product = 1;
+}
+
+message GetAllProductsResponse {
+    repeated Product products = 1;
+}
+
+message CreateProductRequest {
+    Product product = 1;
+}
+
+message UpdateProductRequest {
+    string sku = 1;
+    Product product = 2;
+}
+
+message DeleteProductRequest {
+    string sku = 1;
+}
+
+service ProductService {
+    rpc GetAllProducts (Empty) returns (GetAllProductsResponse);
+    rpc GetProductByID (GetProductRequest) returns (GetProductResponse);
+    rpc CreateProduct (CreateProductRequest) returns (Empty); 
+    rpc UpdateProductByID (UpdateProductRequest) returns (Empty); 
+    rpc DeleteProductByID (DeleteProductRequest) returns (Empty); 
+}
+
+message Empty {}
